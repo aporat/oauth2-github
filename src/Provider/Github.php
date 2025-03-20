@@ -136,7 +136,7 @@ class Github extends AbstractProvider
     protected function getDefaultHeaders(): array
     {
         return [
-            'Accept' => 'application/vnd.github.v3+json'
+            'Accept' => 'application/vnd.github+json'
         ];
     }
 }
