@@ -3,6 +3,7 @@
 namespace League\OAuth2\Client\Provider;
 
 use League\OAuth2\Client\Provider\Exception\GithubIdentityProviderException;
+use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
@@ -118,12 +119,24 @@ class Github extends AbstractProvider
      *
      * @param  array       $response
      * @param  AccessToken $token
-     * @return \League\OAuth2\Client\Provider\ResourceOwnerInterface
+     * @return ResourceOwnerInterface
      */
     protected function createResourceOwner(array $response, AccessToken $token)
     {
         $user = new GithubResourceOwner($response);
 
         return $user->setDomain($this->domain);
+    }
+
+    /**
+     * Returns the default headers used by this provider.
+     *
+     * @return array
+     */
+    protected function getDefaultHeaders(): array
+    {
+        return [
+            'Accept' => 'application/vnd.github.v3+json'
+        ];
     }
 }
